@@ -3,7 +3,15 @@ const userReducers = (state, action) => {
 
     switch (type) {
         case "REGISTER":
-            return { token: payload }
+            localStorage.setItem('token', payload.token)
+            return { ...state, authStatus: true }
+        case "INFO_USER":
+            return { ...state, info2: payload, authStatus: true }
+        case "LOGIN_ERROR":
+        case "SIGN_OUT":
+            localStorage.removeItem('token')
+            return { info2: {}, authStatus: false }
+        
         default:
             return state;
     }

@@ -1,9 +1,9 @@
 import Hijo from "./Hijo"
 
-const Padre = ({token}) => {
+const Padre = () => {
   return (
     <div>
-        <Hijo token={token}/>
+        <Hijo />
     </div>
   )
 }

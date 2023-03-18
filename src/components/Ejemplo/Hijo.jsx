@@ -1,12 +1,22 @@
-import { useContext } from 'react';
+import jwtDecode from 'jwt-decode';
+import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../context/UserContext';
 
 const Hijo = () => {
-    const {userState} = useContext(UserContext)
-    const token = userState.token;
+    const { getUser, userState} = useContext(UserContext);
+   
+
+    
+      
+     
+  //  console.log(userState)
+
+    // console.log(tokenData)
+ 
+    
   return (
     <div>
-        <h1>{token}</h1>
+        {/* <h1>Bienvenido, {userState.info2._id}</h1> */}
     </div>
   )
 }
