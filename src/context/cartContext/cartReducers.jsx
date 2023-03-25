@@ -6,6 +6,13 @@ const cartReducers = (state, action) => {
             return {...state, ...payload};
         case "SET_IS_CART_OPEN":
             return {...state, isCartOpen: payload}
+        case "CLEAR_CHECKOUT":
+            return {
+                isCartOpen: false,
+                cartItems: [],
+                cartCount: 0,
+                cartTotal: 0
+            }
         default: 
             throw new Error(`unhandled type of ${type} in cartReducer`)
     }

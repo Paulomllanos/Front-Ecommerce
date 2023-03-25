@@ -47,15 +47,16 @@ const ProductProvider = ({children}) => {
 
     }
 
-    // const getPreferenceCheckoutMP = async (dataform) => {
-
-    //     console.log("dataform:", dataform)
-
-    //     const res = await axiosClient.post("/mercadopago", dataform)
-
-    //     return res.data.checkoutId
-
-    // }
+    const reduceStock = async(cartItems) => {
+        try {
+            const objetos = {cartItems}
+            console.log(objetos)
+            const result = await axiosClient.put("/products/reduce", { cartItems } );
+            console.log(result.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     return (
@@ -64,7 +65,8 @@ const ProductProvider = ({children}) => {
                 products: productState.products,
                 product: productState.product,
                 getProduct,
-                getProducts      
+                getProducts,
+                reduceStock     
             }}
         >
             { children }

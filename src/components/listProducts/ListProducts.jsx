@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import CartContext from "../../context/cartContext/cartContext";
 
 export default function ListProducts({product}) {
-  const {name, price, image, color, _id } = product
+  const {name, price, image, color, _id, stock } = product
   const { addItemToCart } = useContext(CartContext);
  
   const addProduct = () => addItemToCart(product);
@@ -31,7 +31,7 @@ export default function ListProducts({product}) {
             </div>
           </div>
         </Link>
-        <button onClick={addProduct}>comprar</button>
+       {stock === 0 ? <p className="text-red-900">Sin stock</p> : <button onClick={addProduct} disabled={!(stock > 0)}>comprar</button>}
       </div>
   );
 }

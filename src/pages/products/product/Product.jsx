@@ -13,13 +13,17 @@ export default function Product() {
   const params = useParams();
 
   const { id } = params;
-//   const { addItemToCart } = useContext(CartContext) 
+  const { addItemToCart } = useContext(CartContext) 
   const ctxProduct = useContext(ProductContext)
   const { product, getProduct } = ctxProduct
-  const { name, price, image, brand } = product[0]
+  const { name, price, image, brand, stock } = product[0]
 
   const ctxUser = useContext(UserContext)
   const { info2 } = ctxUser
+
+  console.log(product)
+ 
+  const addProduct = () => addItemToCart(product[0]);
 
   
 
@@ -28,58 +32,11 @@ export default function Product() {
     const fetchProduct = async () => {
 
         await getProduct(id)      
-
-        // MANEJO DE MERCADOPAGO.COM, SOLO SI HAY USUARIO
-        // if(info2){
-
-        // const id = await getPreferenceCheckoutMP({
-        //   items: [
-        //       {
-        //           title: res.nombre,
-        //           quantity: 1,
-        //           currency_id: "MXN",
-        //           unit_price: res.precio,
-        //           picture_url: res.imagen
-        //       }
-        //   ],
-        //   payer: {
-        //       name: user.name,
-        //       email: user.email        
-        //   }
-        // })
-  
-        //   const script = document.createElement('script');
-  
-        //   script.type = 'text/javascript';
-        //   script.src = 'https://sdk.mercadopago.com/js/v2';
-  
-        //   script.addEventListener('load', () => { addCheckout(id) });
-        //   return document.body.appendChild(script);
-        // }
       }
 
     fetchProduct()
 
   }, [])
-
-// const addCheckout = (id) => {
-//   const mp = new window.MercadoPago(process.env.REACT_APP_MERCADO_PAGO_PUBLIC_KEY, {
-//     locale: "es-MX"
-//   })
-
-//   mp.checkout({
-//     preference: {
-//       id: id,
-//     },
-//     render: {
-//       container: `#payment-form`,
-//       label: "Pagar"
-//     }
-//   })
-
-// }
-
-  
 
   return (
     <div className="bg-white">
@@ -138,12 +95,11 @@ export default function Product() {
                     <div classNameName="mt-10" id="payment-form"></div>
                     :
                     <Link to="/crear-cuenta">
-                      <button type="button" className="mt-10 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      {stock === 0 ? <h4 className='text-red-800 no-underline' >Sin Stock</h4> : <button onClick={addProduct} type="button" className="mt-10 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Añadir
-                      </button>
+                      </button>}
                     </Link>
                   }
-                  
                 </div>
 
                 <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">

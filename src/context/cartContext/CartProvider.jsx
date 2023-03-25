@@ -2,7 +2,7 @@ import React from 'react';
 import { useReducer } from 'react';
 import cartReducers from "./cartReducers";
 import CartContext from './cartContext';
-import { addCartItem, removeCartItem, clearCartItem } from './cartFunctions';
+import { addCartItem, removeCartItem, clearCartItem, clearCheckoutItems } from './cartFunctions';
 
 const CartProvider = ({children}) => {
     const initialState = {
@@ -45,12 +45,19 @@ const CartProvider = ({children}) => {
         updateCartItemsReducer(newCartItems)
     }
 
+    const clearItemsFromCheckout = () => {
+        dispatch({
+            type: "CLEAR_CHECKOUT",
+        })
+       
+    }
+
     const setIsCartOpen = (bool) => {
         dispatch({ type: "SET_IS_CART_OPEN", payload: bool})
     }
 
   return (
-    <CartContext.Provider value={{isCartOpen, cartTotal, cartItems, cartCount, setIsCartOpen, addItemToCart, removeItemToCart, clearItemFromCart}}> {children} </CartContext.Provider>
+    <CartContext.Provider value={{isCartOpen, cartTotal, cartItems, cartCount, setIsCartOpen, addItemToCart, removeItemToCart, clearItemFromCart, clearItemsFromCheckout}}> {children} </CartContext.Provider>
   )
 }
 
